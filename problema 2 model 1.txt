@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+int invers(int n)
+{
+    int n1=0;
+    while(n>0)
+    {
+        n1=n1*10+n%10;
+        n/=10;
+    }
+    return n1;
+}
+int main()
+{
+    int i=0,n,v[1000],a[100][100]={0},j,x;
+    FILE *f=fopen("numere.txt","r+");
+fscanf(f,"%d",&n);
+  while(!feof(f))
+    {
+      fscanf(f,"%d",&v[i]);
+        i++;
+    }
+int k=i;
+int p=0,t=0;
+for(i=0;i<n;i++)
+    for(j=0;j<n;j++)
+        if(invers(v[p])==v[p])
+        {a[i][j]=v[p];
+    p++;}
+    else
+        if(p<k)
+        {
+            j--;
+            p++;
+        }
+        else
+        {a[i][j]=t*t;t++;}
+     fprintf(f,"\n");
+
+for(i=0;i<n;i++)
+{
+    for(j=0;j<n;j++)
+        fprintf(f,"%d ",a[i][j]);
+    fprintf(f,"\n");
+}
+    return 0;
+}

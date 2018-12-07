@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+// calculeaza suma cifrelor lui n
+int suma_cifre(int n)
+{ int s=0;
+    while(n!=0)
+    {
+        s+=n%10;
+        n/=10;
+    }
+    return s;
+}
+// calculeaza a^n neoptim(complexitate O(n))
+int putere(int a,int n)
+{int p=1;
+    for(int i=1;i<=n;i++)
+        p*=a;
+    return p;
+}
+
+int main()
+{
+    int n,a,s,z,y,i;
+    FILE *f=fopen("numere.txt","w");
+    //scanf("%d",&n); //pt punctul a
+    //scanf("%d",&a); //pt punctul b
+    //printf("%d\n",suma_cifre(n)); //pt punctul a
+   // printf("%d",putere(a,n)); //pt punctul b
+   //pt punctul c
+   scanf("%d%d",&n,&s);
+   y=putere(10,n-1);
+   z=putere(10,n);  
+   for(i=y;i<z;i++)
+    if(suma_cifre(i)==s)
+    fprintf(f,"%d ",i);
+    return 0;
+}

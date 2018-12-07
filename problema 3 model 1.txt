@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct produs
+{
+    char denumire[16],face_parte;
+    int cod;
+    float pret;
+};
+void afisare(struct produs *v,int n,char *s)
+{int i;
+    FILE *f=fopen(s,"w");
+    for(i=0;i<n;i++)
+{
+    fprintf(f,"%hu\n",v[i].cod);
+    fprintf(f,"%s",v[i].denumire);
+    fprintf(f,"%f\n",v[i].pret);
+    fprintf(f,"%c\n",v[i].face_parte);
+    fprintf(f,"\n");
+}
+}
+void stergere(struct produs *v,int *n,int *pozitie_pret_maxim)
+{
+    int i,maxim=0,j;
+    for(i=0;i<*n;i++)
+    {
+        if(v[i].face_parte=='1')
+        {
+            for(j=i;j<*n-1;j++)
+                v[j]=v[j+1];
+
+            (*n)--;
+        }
+        else
+            if(v[i].pret>maxim)
+        {maxim=v[i].pret;
+        *pozitie_pret_maxim=i;}
+
+    }
+
+}
+int main()
+{int i=0,n,pozitie_pret_maxim;
+
+    struct produs p[100];
+     FILE *f=fopen("produse.in","r");
+     fscanf(f,"%d",&n);
+
+while(!feof(f))
+{
+
+   fscanf(f,"%hu\n",&p[i].cod);
+   if(feof(f))
+    break;
+   fgets(p[i].denumire,16,f);
+     fscanf(f,"%f\n",&p[i].pret);
+   fscanf(f,"%c",&p[i].face_parte);
+    i++;
+}
+
+afisare(p,n,"produse.out");
+stergere(p,&n,&pozitie_pret_maxim);
+afisare(p,n,"produse2.out");
+printf("%d",p[pozitie_pret_maxim].cod);
+
+    return 0;
+}

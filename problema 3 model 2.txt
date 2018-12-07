@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void sume(int a[100][100],int *s1,int *s2,int m,int n,int k)
+{
+    for(int j=0;j<n;j++)
+    {if(a[k][j]>0)
+    {*s1=*s1+a[k][j];
+    }
+    else
+        {*s2=*s2+a[k][j];
+
+        }
+    }
+}
+
+int main()
+{
+    int m,n,i,j,s1=0,s2=0,k;
+    int a[100][100];
+FILE *f=fopen("matrice.txt","r+");
+fscanf(f,"%d%d",&m,&n);
+//scanf("%d",&k); pt punctul a
+for(i=0;i<m;i++)
+{
+    for(j=0;j<n;j++)
+    {
+        fscanf(f,"%d",&a[i][j]);
+    }
+}
+int nr=0;
+for(i=0;i<m;i++)
+{
+    s1=s2=0;
+    sume(a,&s1,&s2,m,n,i);
+    if(s1+s2==0)
+        nr++;
+}
+fprintf(f,"\n%d",nr);
+    return 0;
+}
